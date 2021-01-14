@@ -20,9 +20,13 @@ This is a route to show a page with all the films in the Star Wars universe.
 Use what you have written for #1 in playground.py to retrieve the list of films
 You will have to create a new html template in the templates folder and send the films to the frontend
 """
+base_url = "https://swapi.py4e.com/api/"
+
 @app.route("/all_films")
 def all_films():
-    pass
+    film_url = f"{base_url}/films"
+    films = [film['title'] for film in requests.get(film_url).json()['results']]
+    return render_template('films.html', films = films)
 
 """
 Run 'python3 api.py' in the terminal to start the Flask API server
